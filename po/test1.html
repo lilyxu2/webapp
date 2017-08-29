@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    .a{
+        display: inline-block;
+        width: 30px;
+        height: 20px;
+        border: 1px solid #000;
+    }
+    </style>
+</head>
+<body>
+	
+    <input type="text" id="querry" placeholder="请输入您要查找的用户账号" />
+    <table>
+        <thead>
+        	<tr>
+        		<th><input type="checkbox"/></th>
+        		<th>用户编号</th>
+        		<th>用户账号</th>
+        		<th>身份证号</th>
+        		<th>电话号码</th>
+        		<th>邮箱</th>
+        		<th>所属部门</th>
+        		<th>状态</th>
+        		<th>操作</th>
+        	</tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+    <a href="tianjia.html">新增</a>>
+    <script src="js/jquery-3.2.1.min.js"/></script>
+    <script type="text/javascript">
+    	
+        function showData(){
+            $("tbody").html("");
+            $.ajax({
+                url:"a.php",
+                type:'GET',
+                dataType:'json',
+                data:{all:1},
+                success:function(data){
+                    // console.log(data)
+                    for(var i=0;i<data.length;i++){
+                        var x=$("<tr>");
+                        x.appendTo("tbody");
+                        $("<td>").html("<input type='checkbox'/>").appendTo(x);
+                        
+                        for(var j=0;j<data[i].length;j++){
+                            $("<td>").html(data[i][j]).appendTo(x);
+                        }
+                        $("<td>").html("<div></div>").addClass("a").appendTo(x);
+                        $("<td>").html("<button class='delete'>删除</button>").appendTo(x).click(function(){
+                            var thisId=$(this).parent().find("td").eq(1).html();
+                            $.ajax({
+                                data:{id:thisId},
+                                type:'GET',
+                                url:"a.php",
+                                success:function(data){
+                                    console.log(data)
+                                    if(data==1){
+                                        alert("删除成功!");
+                                    }
+                                    showData();
+                                }
+                            })
+                        });
+                        $("<td>").html("<button class='revise'>修改</button>").appendTo(x).click(function(){
+                            var pre=$(this).parent().find("td").eq(1).html();
+
+                            $.ajax({
+                                type:"get",
+                                url:"a.php",
+                                data:
+                            })
+                            location.href="revise.html";
+                        })
+                    }
+                }
+            })
+        }
+        showData();
+       
+       $('#querry').on("keyup",function(e){
+            var $txt=$("#querry").val();
+            if(e.keyCode==13){
+                $("tbody tr").hide();
+                $("tbody tr td:nth-child(3)").each(function(){
+                    if(this.innerHTML.indexOf($txt)!=-1){
+                        $(this).parent().show();
+                    }
+                })
+                
+            }
+       })
+    </script>
+</body>
+</html>

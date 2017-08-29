@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		input{
+			margin-top: 10px;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+	<form action="test1.html">
+		<label>用户账号：<input type="text" required="requierd" /></label><br/>
+		<label>身份证号：<input type="text" required="requierd"/></label><br/>
+		<label>电话号码：<input type="text" required="requierd"/></label><br/>
+		<label>常用邮箱：<input type="text" required="requierd"/></label><br/>
+		<label>所属部门：<input type="text" required="requierd"/></label><br/>
+		<input type="submit" value="提交" />
+	</form>
+	<script type="text/javascript">
+		var form=document.forms[0];
+		var inputs=document.getElementsByTagName("input");
+		form.onsubmit=function(){
+			var subUsername=inputs[0].value;
+			var subCredit=inputs[1].value;
+			var subTel=inputs[2].value;
+			var subEmail=inputs[3].value;
+			var subDepartment=inputs[4].value;
+			$.ajax({
+				url:"a.php",
+				type:"GET",
+				data:{sUsername:subUsername,sCredit:subCredit,sTel:subTel,sEmail:subEmail,sDepartment:subDepartment},
+				success:function(data){
+					console.log(data)
+					if(data==1){
+						alert("提交成功！")
+					}
+				}
+			})
+			return false;
+		}
+	</script>
+</body>
+</html>

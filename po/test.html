@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+	<a href="tianjia.html">新增</<a href=""></a>>
+    <table>
+    	<tr>
+    		<th><input type="checkbox"/></th>
+    		<th>用户编号</th>
+    		<th>用户账号</th>
+    		<th>身份证号</th>
+    		<th>电话号码</th>
+    		<th>邮箱</th>
+    		<th>所属部门</th>
+    		<th>状态</th>
+    		<th>操作</th>
+    	</tr>
+    </table>
+    <script src="js/jquery-3.2.1.min.js"/></script>
+    <script type="text/javascript">
+    	var db=openDatabase("users","1.0","test websql",1024*1024);
+    	db.transaction(function(tx){
+    		tx.executeSql("create table if not exists user (id integer,username char(10),credit char(18),tel char(11),email char(50),department char(15))");
+    	})
+    	if (sessionStorage.getItem("id")) {
+    		var ids=sessionStorage.getItem("id");
+    		var usernames=sessionStorage.getItem("username");
+    		var credits=sessionStorage.getItem("credit");
+    		var tels=sessionStorage.getItem("tel");
+    		var emails=sessionStorage.getItem("email");
+    		var departments=sessionStorage.getItem("department");
+    		console.log(ids,usernames)
+    		db.transaction(function(tx){
+    			tx.executeSql("insert into user (id,username,credit,tel,email,department) values(?,?,?,?,?,?)",[ids,usernames,credits,tels,emails,departments],function(tx,rs){
+    				show();
+    			})
+    		})
+    	}
+    	function show(){
+    		var str="";
+    		db.transaction(function(tx){
+    			tx
+    		})
+    	}
+    	//创建行
+    	function addRow(){
+    		$("<tr>").appendTo($("table"));
+    		$("")
+    	}
+    </script>
+</body>
+</html>

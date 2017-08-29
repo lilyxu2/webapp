@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="test1.html">
+		<label>用户账号：<input type="text" required="requierd" /></label><br/>
+		<label>身份证号：<input type="text" required="requierd"/></label><br/>
+		<label>电话号码：<input type="text" required="requierd"/></label><br/>
+		<label>常用邮箱：<input type="text" required="requierd"/></label><br/>
+		<label>所属部门：<input type="text" required="requierd"/></label><br/>
+		<input type="submit" value="提交" />
+	</form>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+		var form=document.forms[0];
+		var inputs=form.getElementsByTagName("input");
+		var updateUsername=inputs[0].value;
+		var updateCredit=inputs[1].value;
+		var updateTel=inputs[2].value;
+		var updateEmail=inputs[3].value;
+		var updateDepartment=inputs[4].value;
+		form.onsubmit=function(){
+			$.ajax({
+				type:"get",
+				url:"a.php",
+				data:{uUsername:updateUsername,uCredit:updateCredit,uTel:updateTel,uEmail:updateEmail,uDepartment:updateDepartment},
+				success:function(data){
+					console.log(data);
+				}
+			})
+		}
+	</script>
+</body>
+</html>
